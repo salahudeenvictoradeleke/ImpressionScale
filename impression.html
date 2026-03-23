@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Targeted Impressions On Demand</title>
+  <meta name="description" content="Get 100,000 to 1,000,000+ targeted impressions on demand. Fast, scalable visibility for your offer, brand, or landing page." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121933;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #f5f7ff;
+      --muted: #aab3d1;
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --danger: #f59e0b;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(110, 231, 183, 0.14), transparent 28%),
+        linear-gradient(180deg, #08101f 0%, #0b1020 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(7, 12, 24, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 1.05rem;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .nav a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.25s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #06101e;
+      box-shadow: 0 10px 30px rgba(96, 165, 250, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 38px rgba(96, 165, 250, 0.28);
+    }
+
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero {
+      padding: 78px 0 44px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-size: 0.92rem;
+    }
+
+    .eyebrow .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 8px rgba(110, 231, 183, 0.14);
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 4.6rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin-bottom: 18px;
+      max-width: 12ch;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 60ch;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .hero-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-points span {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -30% auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(110,231,183,0.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .stat h3 {
+      font-size: 1.7rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .section {
+      padding: 68px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 32px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .cards-3,
+    .pricing-grid,
+    .faq-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .cards-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(110,231,183,0.18), rgba(96,165,250,0.18));
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.2rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      position: relative;
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #08101f;
+      font-weight: 800;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .pricing-grid {
+      grid-template-columns: repeat(4, 1fr);
+      align-items: stretch;
+    }
+
+    .price-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price-card.featured {
+      transform: translateY(-8px);
+      border-color: rgba(110,231,183,0.36);
+      background: linear-gradient(180deg, rgba(110,231,183,0.10), rgba(255,255,255,0.05));
+    }
+
+    .badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(110,231,183,0.14);
+      color: var(--accent);
+      border: 1px solid rgba(110,231,183,0.28);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .price-title {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 2.3rem;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 12px 0 6px;
+    }
+
+    .price small {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .volume {
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .features {
+      list-style: none;
+      margin: 20px 0 24px;
+      display: grid;
+      gap: 12px;
+      color: var(--muted);
+    }
+
+    .features li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 0.95rem;
+    }
+
+    .features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .price-card .btn {
+      margin-top: auto;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .notice {
+      border-left: 4px solid var(--danger);
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    .cta-box {
+      text-align: center;
+      padding: 34px;
+      background: linear-gradient(180deg, rgba(96,165,250,0.12), rgba(110,231,183,0.08));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 auto 24px;
+    }
+
+    .faq-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .faq-item h3 {
+      font-size: 1.02rem;
+      margin-bottom: 8px;
+    }
+
+    .faq-item p {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    footer {
+      padding: 36px 0 48px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .split,
+      .pricing-grid,
+      .cards-3,
+      .faq-grid,
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+
+      .hero-grid,
+      .split,
+      .pricing-grid,
+      .cards-3,
+      .faq-grid,
+      .steps,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        max-width: 100%;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .topbar-inner {
+        padding: 14px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#" class="brand">Impression<span>Scale</span></a>
+      <nav class="nav">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a href="#pricing" class="btn btn-primary track-cta" data-cta-location="topbar_get_started">Get Started</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">
+          <span class="dot"></span>
+          On-Demand Targeted Impression Distribution
+        </div>
+        <h1>Get 100,000 to 1,000,000+ Targeted Impressions</h1>
+        <p class="lead">
+          Put your offer, product, or landing page in front of real audiences fast.
+          This is controlled distribution built for immediate visibility, scalable reach, and campaign momentum.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#pricing" class="btn btn-primary track-cta" data-cta-location="hero_choose_package">Choose Your Package</a>
+          <a href="#how-it-works" class="btn btn-secondary track-cta" data-cta-location="hero_see_how_it_works">See How It Works</a>
+        </div>
+
+        <div class="hero-points">
+          <span>Fast deployment</span>
+          <span>100K to 1M+ impressions</span>
+          <span>Built for offers, funnels, and launches</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 style="font-size:1.35rem; margin-bottom: 6px;">Launch Visibility Without Waiting</h3>
+        <p style="color: var(--muted); margin-bottom: 10px;">
+          Most businesses don’t have a traffic problem — they have a distribution problem.
+          This service solves that.
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <h3>100K</h3>
+            <p>Starter impressions for fast campaign activation</p>
+          </div>
+          <div class="stat">
+            <h3>$200</h3>
+            <p>Entry point for testing offers and buying reach</p>
+          </div>
+          <div class="stat">
+            <h3>1M+</h3>
+            <p>Scale campaigns aggressively with larger distribution</p>
+          </div>
+          <div class="stat">
+            <h3>On Demand</h3>
+            <p>Use when you need visibility now, not months later</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>You Don’t Need More Content. You Need Reach.</h2>
+        <p>
+          Organic growth is slow. Passive discovery is unreliable. If your offer is ready,
+          distribution is the missing layer. This service gives you immediate exposure by pushing
+          your campaign in front of targeted audiences at scale.
+        </p>
+      </div>
+
+      <div class="cards-3">
+        <div class="card">
+          <div class="icon">⚡</div>
+          <h3>Fast Visibility</h3>
+          <p>
+            Launch traffic quickly instead of waiting for algorithms, referrals, or slow audience growth.
+          </p>
+        </div>
+        <div class="card">
+          <div class="icon">🎯</div>
+          <h3>Targeted Reach</h3>
+          <p>
+            Campaign distribution is aligned to your offer type so impressions are relevant, not random.
+          </p>
+        </div>
+        <div class="card">
+          <div class="icon">📈</div>
+          <h3>Scalable Distribution</h3>
+          <p>
+            Start with 100K impressions, validate performance, then scale toward 1M+ as needed.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-head">
+        <h2>How It Works</h2>
+        <p>
+          Simple execution. No bloated setup. No long onboarding. Just a clean path from campaign submission to distribution.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Submit Your Campaign</h3>
+          <p>Send your link, offer, funnel, landing page, or campaign asset for activation.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Targeting Is Applied</h3>
+          <p>Your campaign is aligned with the appropriate audience category and distribution path.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Impressions Are Delivered</h3>
+          <p>Your selected volume is distributed across the network based on the chosen package.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Visibility Compounds</h3>
+          <p>You gain immediate reach for launches, testing, awareness, or funnel traffic acceleration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="section-head">
+        <h2>Choose Your Reach Package</h2>
+        <p>
+          Start at the level that matches your campaign size. Use entry pricing for testing,
+          then scale once the offer proves itself.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="card price-card">
+          <div class="price-title">Starter</div>
+          <div class="volume">100,000 Impressions</div>
+          <div class="price">$200</div>
+          <small>Best for offer testing</small>
+          <ul class="features">
+            <li>100K targeted impressions</li>
+            <li>Fast campaign activation</li>
+            <li>Good for early traction</li>
+            <li>Ideal for landing page testing</li>
+          </ul>
+      <a
+  href="/form/order-form.html"
+  class="btn btn-secondary package-order-btn"
+  data-package="Starter"
+  data-price="200"
+  data-impressions="100000"
+  data-cta-location="pricing_starter"
+>
+  Order Starter
+</a>
+        </div>
+
+        <div class="card price-card">
+          <div class="price-title">Growth</div>
+          <div class="volume">250,000 Impressions</div>
+          <div class="price">$450</div>
+          <small>More visibility, broader push</small>
+          <ul class="features">
+            <li>250K targeted impressions</li>
+            <li>Stronger campaign reach</li>
+            <li>Useful for offer validation</li>
+            <li>Better momentum for launches</li>
+          </ul>
+       <a
+  href="/form/order-form.html"
+  class="btn btn-secondary package-order-btn"
+  data-package="Growth"
+  data-price="450"
+  data-impressions="250000"
+  data-cta-location="pricing_growth"
+>
+  Order Growth
+</a>
+        </div>
+
+        <div class="card price-card featured">
+          <div class="badge">Most Popular</div>
+          <div class="price-title">Scale</div>
+          <div class="volume">500,000 Impressions</div>
+          <div class="price">$800</div>
+          <small>Serious distribution power</small>
+          <ul class="features">
+            <li>500K targeted impressions</li>
+            <li>Built for stronger funnel traffic</li>
+            <li>Ideal for scaling proven offers</li>
+            <li>Higher volume brand visibility</li>
+          </ul>
+       <a
+  href="/form/order-form.html"
+  class="btn btn-primary package-order-btn"
+  data-package="Scale"
+  data-price="800"
+  data-impressions="500000"
+  data-cta-location="pricing_scale"
+>
+  Order Scale
+</a>
+        </div>
+
+        <div class="card price-card">
+          <div class="price-title">Authority</div>
+          <div class="volume">1,000,000 Impressions</div>
+          <div class="price">$1,400</div>
+          <small>Maximum exposure tier</small>
+          <ul class="features">
+            <li>1M targeted impressions</li>
+            <li>Built for aggressive campaigns</li>
+            <li>Strongest visibility package</li>
+            <li>Custom volume available above 1M</li>
+          </ul>
+      <a
+  href="/form/order-form.html"
+  class="btn btn-secondary package-order-btn"
+  data-package="Authority"
+  data-price="1400"
+  data-impressions="1000000"
+  data-cta-location="pricing_authority"
+>
+  Order Authority
+</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="card">
+        <div class="section-head" style="margin-bottom: 18px;">
+          <h2 style="font-size: 2rem;">Who This Is For</h2>
+        </div>
+        <ul class="features">
+          <li>Product owners launching a new offer</li>
+          <li>Brands that need fast visibility</li>
+          <li>Marketers testing funnels and creatives</li>
+          <li>Businesses pushing traffic to landing pages</li>
+          <li>Founders who want distribution on demand</li>
+        </ul>
+      </div>
+
+      <div class="card notice">
+        <div class="section-head" style="margin-bottom: 18px;">
+          <h2 style="font-size: 2rem;">Important Expectations</h2>
+        </div>
+        <ul class="features">
+          <li>This service guarantees impressions, not conversions</li>
+          <li>Results depend on your offer, message, and funnel quality</li>
+          <li>For best performance, use a strong landing page</li>
+          <li>Custom targeting options may be available on request</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Distribution Is the Missing Layer</h2>
+        <p>
+          If your offer is ready, visibility should not be the bottleneck.
+          Choose your package, submit your campaign, and activate reach on demand.
+        </p>
+        <div class="hero-actions" style="justify-content:center; margin-bottom:0;">
+          <a href="#pricing" class="btn btn-primary track-cta" data-cta-location="bottom_buy_impressions_now">Buy Impressions Now</a>
+          <a href="#faq" class="btn btn-secondary track-cta" data-cta-location="bottom_read_faq">Read FAQ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <h2>Frequently Asked Questions</h2>
+        <p>Clear expectations make this easier to sell and easier to fulfill.</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="card faq-item">
+          <h3>How fast does delivery start?</h3>
+          <p>Campaigns typically begin shortly after the required information is submitted and confirmed.</p>
+        </div>
+        <div class="card faq-item">
+          <h3>Can I choose my audience?</h3>
+          <p>Basic targeting is included. More specific targeting can be offered as an upgraded service.</p>
+        </div>
+        <div class="card faq-item">
+          <h3>Do you guarantee sales?</h3>
+          <p>No. This service guarantees visibility through impressions. Sales depend on your offer and conversion path.</p>
+        </div>
+        <div class="card faq-item">
+          <h3>Can I scale beyond 1 million impressions?</h3>
+          <p>Yes. Larger custom campaigns can be arranged for higher-volume distribution needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 ImpressionScale. All rights reserved.</div>
+      <div>Built for fast visibility, controlled reach, and scalable exposure.</div>
+    </div>
+  </footer>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    const OFFER_STORAGE_KEY = "selected_impression_offer";
+
+    function getQueryParams() {
+      return new URLSearchParams(window.location.search);
+    }
+
+    function saveOfferPayload(payload) {
+      localStorage.setItem(OFFER_STORAGE_KEY, JSON.stringify(payload));
+    }
+
+    function getSavedOfferPayload() {
+      try {
+        return JSON.parse(localStorage.getItem(OFFER_STORAGE_KEY)) || null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function buildOfferPayload({
+      selectedPackage = "",
+      price = "",
+      impressionVolume = "",
+      sourceCtaLocation = "",
+      sourcePage = window.location.pathname,
+      timestamp = new Date().toISOString()
+    }) {
+      return {
+        selected_package: selectedPackage,
+        price: price,
+        impression_volume: impressionVolume,
+        source_cta_location: sourceCtaLocation,
+        source_page: sourcePage,
+        timestamp: timestamp
+      };
+    }
+
+    function pushAnalyticsEvent(eventName, payload) {
+      window.dataLayer.push({
+        event: eventName,
+        ecommerce: null,
+        selected_package: payload.selected_package,
+        price: payload.price,
+        impression_volume: payload.impression_volume,
+        source_cta_location: payload.source_cta_location,
+        source_page: payload.source_page,
+        timestamp: payload.timestamp
+      });
+    }
+
+    function buildCheckoutUrl(baseUrl, payload) {
+      const url = new URL(baseUrl, window.location.origin);
+      url.searchParams.set("selected_package", payload.selected_package);
+      url.searchParams.set("price", payload.price);
+      url.searchParams.set("impression_volume", payload.impression_volume);
+      url.searchParams.set("source_cta_location", payload.source_cta_location);
+      url.searchParams.set("source_page", payload.source_page);
+      return url.toString();
+    }
+
+    function populateHiddenFieldsFromPayload(payload) {
+      if (!payload) return;
+
+      const fieldMap = {
+        selected_package: payload.selected_package,
+        price: payload.price,
+        impression_volume: payload.impression_volume,
+        source_cta_location: payload.source_cta_location,
+        source_page: payload.source_page
+      };
+
+      Object.entries(fieldMap).forEach(([name, value]) => {
+        document.querySelectorAll(`[name="${name}"]`).forEach((field) => {
+          field.value = value || "";
+        });
+      });
+    }
+
+    function getPayloadFromUrlOrStorage() {
+      const params = getQueryParams();
+
+      const hasUrlPayload =
+        params.get("selected_package") ||
+        params.get("price") ||
+        params.get("impression_volume") ||
+        params.get("source_cta_location");
+
+      if (hasUrlPayload) {
+        const payload = buildOfferPayload({
+          selectedPackage: params.get("selected_package") || "",
+          price: params.get("price") || "",
+          impressionVolume: params.get("impression_volume") || "",
+          sourceCtaLocation: params.get("source_cta_location") || "",
+          sourcePage: params.get("source_page") || document.referrer || window.location.pathname
+        });
+
+        saveOfferPayload(payload);
+        return payload;
+      }
+
+      return getSavedOfferPayload();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const packageButtons = document.querySelectorAll(".package-order-btn");
+      const genericTrackedCtas = document.querySelectorAll(".track-cta");
+
+      packageButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const payload = buildOfferPayload({
+            selectedPackage: this.dataset.package,
+            price: this.dataset.price,
+            impressionVolume: this.dataset.impressions,
+            sourceCtaLocation: this.dataset.ctaLocation
+          });
+
+          saveOfferPayload(payload);
+          pushAnalyticsEvent("package_selected", payload);
+
+          const checkoutUrl = buildCheckoutUrl(this.getAttribute("href"), payload);
+          window.location.href = checkoutUrl;
+        });
+      });
+
+      genericTrackedCtas.forEach((cta) => {
+        cta.addEventListener("click", function () {
+          const payload = buildOfferPayload({
+            sourceCtaLocation: this.dataset.ctaLocation
+          });
+
+          saveOfferPayload({
+            ...getSavedOfferPayload(),
+            ...payload
+          });
+
+          pushAnalyticsEvent("cta_clicked", {
+            selected_package: getSavedOfferPayload()?.selected_package || "",
+            price: getSavedOfferPayload()?.price || "",
+            impression_volume: getSavedOfferPayload()?.impression_volume || "",
+            source_cta_location: this.dataset.ctaLocation || "",
+            source_page: window.location.pathname,
+            timestamp: new Date().toISOString()
+          });
+        });
+      });
+
+      const existingPayload = getPayloadFromUrlOrStorage();
+      populateHiddenFieldsFromPayload(existingPayload);
+    });
+  </script>
+
+</body>
+</html>
