@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complete Your Campaign Order</title>
+  <meta name="description" content="Confirm your package, submit campaign details, and continue to checkout." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.12);
+      --text: #f5f7ff;
+      --muted: #aab3d1;
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --shadow: 0 20px 50px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --max: 1080px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(110, 231, 183, 0.14), transparent 28%),
+        linear-gradient(180deg, #08101f 0%, #0b1020 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .page {
+      padding: 42px 0 70px;
+    }
+
+    .topbar {
+      padding: 20px 0 10px;
+    }
+
+    .brand {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 1.05rem;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .page-head {
+      margin: 18px 0 28px;
+    }
+
+    .page-head h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .page-head p {
+      color: var(--muted);
+      max-width: 700px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-title,
+    .form-title {
+      font-size: 1.2rem;
+      margin-bottom: 14px;
+    }
+
+    .summary-package {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(110, 231, 183, 0.14);
+      color: var(--accent);
+      border: 1px solid rgba(110, 231, 183, 0.24);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .summary-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .summary-item .label {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 4px;
+    }
+
+    .summary-item .value {
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 0.94rem;
+      font-weight: 600;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #93a0c8;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.25s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #06101e;
+    }
+
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .small {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .status {
+      margin-top: 8px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 860px) {
+      .layout, .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="container">
+      <div class="topbar">
+        <a href="/impression.html" class="brand">Impression<span>Scale</span></a>
+      </div>
+
+      <div class="page-head">
+        <h1>Complete Your Campaign Setup</h1>
+        <p>
+          Confirm your package, submit campaign details, and continue to final checkout.
+        </p>
+      </div>
+
+      <div class="layout">
+        <aside class="card">
+          <h2 class="summary-title">Selected Package</h2>
+          <div class="summary-package" id="summaryPackageBadge">No package selected</div>
+
+          <div class="summary-grid">
+            <div class="summary-item">
+              <div class="label">Package</div>
+              <div class="value" id="summaryPackage">—</div>
+            </div>
+            <div class="summary-item">
+              <div class="label">Price</div>
+              <div class="value" id="summaryPrice">—</div>
+            </div>
+            <div class="summary-item">
+              <div class="label">Impression Volume</div>
+              <div class="value" id="summaryImpressions">—</div>
+            </div>
+            <div class="summary-item">
+              <div class="label">CTA Source</div>
+              <div class="value" id="summarySource">—</div>
+            </div>
+          </div>
+
+          <p class="note">
+            This form inherits the package selected from the pricing CTA and carries it into CRM, analytics, and final checkout.
+          </p>
+        </aside>
+
+        <section class="card">
+          <h2 class="form-title">Campaign Details</h2>
+
+          <form id="campaignForm">
+            <input type="hidden" name="selected_package" />
+            <input type="hidden" name="price" />
+            <input type="hidden" name="impression_volume" />
+            <input type="hidden" name="source_cta_location" />
+            <input type="hidden" name="source_page" />
+            <input type="hidden" name="landing_page" />
+            <input type="hidden" name="referrer" />
+            <input type="hidden" name="utm_source" />
+            <input type="hidden" name="utm_medium" />
+            <input type="hidden" name="utm_campaign" />
+            <input type="hidden" name="utm_term" />
+            <input type="hidden" name="utm_content" />
+            <input type="hidden" name="timestamp" />
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="name">Full Name</label>
+                <input id="name" name="name" type="text" placeholder="Your full name" required />
+              </div>
+
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="company">Company / Brand</label>
+                <input id="company" name="company" type="text" placeholder="Brand or company name" />
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="text" placeholder="Optional phone number" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="campaign_url">Landing Page / Offer URL</label>
+              <input id="campaign_url" name="campaign_url" type="url" placeholder="https://yourdomain.com/offer" required />
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="audience">Audience Targeting</label>
+                <input id="audience" name="audience" type="text" placeholder="Who should see this?" />
+              </div>
+
+              <div class="field">
+                <label for="timeline">Launch Timeline</label>
+                <select id="timeline" name="timeline">
+                  <option value="">Select timeline</option>
+                  <option value="immediately">Immediately</option>
+                  <option value="within_24_hours">Within 24 hours</option>
+                  <option value="this_week">This week</option>
+                  <option value="flexible">Flexible</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="notes">Campaign Notes</label>
+              <textarea id="notes" name="notes" placeholder="Add offer context, targeting details, launch notes, or campaign requirements"></textarea>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn btn-primary">Save Details & Continue to Checkout</button>
+              <a href="/impression.html" class="btn btn-secondary">Back to Packages</a>
+            </div>
+
+            <div class="status" id="formStatus">
+              Your package selection will be preserved when you continue to checkout.
+            </div>
+          </form>
+
+          <p class="small" style="margin-top: 16px;">
+            Replace the CRM endpoint and checkout URL in the script with your actual systems.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    const OFFER_STORAGE_KEY = "selected_impression_offer";
+    const CRM_ENDPOINT = "https://example.com/api/lead";
+    const CHECKOUT_BASE_URL = "https://yourcheckoutdomain.com/checkout";
+    const OFFER_PAGE_URL = "/impression.html";
+
+    function getQueryParams() {
+      return new URLSearchParams(window.location.search);
+    }
+
+    function formatPrice(price) {
+      if (!price) return "—";
+      return `$${Number(price).toLocaleString()}`;
+    }
+
+    function formatImpressions(value) {
+      if (!value) return "—";
+      return Number(value).toLocaleString() + " impressions";
+    }
+
+    function saveOfferPayload(payload) {
+      localStorage.setItem(OFFER_STORAGE_KEY, JSON.stringify(payload));
+    }
+
+    function getSavedOfferPayload() {
+      try {
+        return JSON.parse(localStorage.getItem(OFFER_STORAGE_KEY)) || null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function buildOfferPayload(overrides = {}) {
+      const params = getQueryParams();
+      const existing = getSavedOfferPayload() || {};
+
+      const payload = {
+        selected_package: overrides.selected_package ?? params.get("selected_package") ?? existing.selected_package ?? "",
+        price: overrides.price ?? params.get("price") ?? existing.price ?? "",
+        impression_volume: overrides.impression_volume ?? params.get("impression_volume") ?? existing.impression_volume ?? "",
+        source_cta_location: overrides.source_cta_location ?? params.get("source_cta_location") ?? existing.source_cta_location ?? "",
+        source_page: overrides.source_page ?? params.get("source_page") ?? existing.source_page ?? document.referrer ?? "",
+        landing_page: overrides.landing_page ?? existing.landing_page ?? window.location.href,
+        referrer: overrides.referrer ?? document.referrer ?? "",
+        utm_source: overrides.utm_source ?? params.get("utm_source") ?? existing.utm_source ?? "",
+        utm_medium: overrides.utm_medium ?? params.get("utm_medium") ?? existing.utm_medium ?? "",
+        utm_campaign: overrides.utm_campaign ?? params.get("utm_campaign") ?? existing.utm_campaign ?? "",
+        utm_term: overrides.utm_term ?? params.get("utm_term") ?? existing.utm_term ?? "",
+        utm_content: overrides.utm_content ?? params.get("utm_content") ?? existing.utm_content ?? "",
+        timestamp: overrides.timestamp ?? existing.timestamp ?? new Date().toISOString()
+      };
+
+      saveOfferPayload(payload);
+      return payload;
+    }
+
+    function pushAnalyticsEvent(eventName, payload) {
+      window.dataLayer.push({
+        event: eventName,
+        ecommerce: null,
+        ...payload
+      });
+    }
+
+    function populateSummary(payload) {
+      document.getElementById("summaryPackageBadge").textContent = payload.selected_package || "No package selected";
+      document.getElementById("summaryPackage").textContent = payload.selected_package || "—";
+      document.getElementById("summaryPrice").textContent = formatPrice(payload.price);
+      document.getElementById("summaryImpressions").textContent = formatImpressions(payload.impression_volume);
+      document.getElementById("summarySource").textContent = payload.source_cta_location || "—";
+    }
+
+    function populateHiddenFields(form, payload) {
+      Object.entries(payload).forEach(([key, value]) => {
+        const field = form.querySelector(`[name="${key}"]`);
+        if (field) field.value = value || "";
+      });
+    }
+
+    function getFormDataObject(form) {
+      const formData = new FormData(form);
+      const data = {};
+      for (const [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+      return data;
+    }
+
+    function buildCheckoutUrl(baseUrl, payload) {
+      const url = new URL(baseUrl, window.location.origin);
+
+      Object.entries(payload).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          url.searchParams.set(key, value);
+        }
+      });
+
+      return url.toString();
+    }
+
+    async function postToCrm(payload) {
+      if (!CRM_ENDPOINT || CRM_ENDPOINT.includes("example.com")) {
+        return { skipped: true };
+      }
+
+      const response = await fetch(CRM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error("CRM submission failed");
+      }
+
+      return response.json().catch(() => ({}));
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("campaignForm");
+      const status = document.getElementById("formStatus");
+
+      const payload = buildOfferPayload();
+
+      if (!payload.selected_package) {
+        status.textContent = "No package was detected. Redirecting back to packages...";
+        setTimeout(function () {
+          window.location.href = OFFER_PAGE_URL;
+        }, 1200);
+        return;
+      }
+
+      populateSummary(payload);
+      populateHiddenFields(form, payload);
+
+      pushAnalyticsEvent("order_form_viewed", payload);
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const latestPayload = buildOfferPayload({
+          landing_page: window.location.href,
+          referrer: document.referrer || "",
+          timestamp: new Date().toISOString()
+        });
+
+        if (!latestPayload.selected_package) {
+          status.textContent = "Please go back and choose a package first.";
+          return;
+        }
+
+        const formData = getFormDataObject(form);
+        const fullPayload = {
+          ...latestPayload,
+          ...formData
+        };
+
+        saveOfferPayload(fullPayload);
+        pushAnalyticsEvent("order_form_submitted", fullPayload);
+
+        status.textContent = "Submitting details...";
+
+        try {
+          await postToCrm(fullPayload);
+
+          const checkoutUrl = buildCheckoutUrl(CHECKOUT_BASE_URL, fullPayload);
+          status.textContent = "Redirecting to checkout...";
+          window.location.href = checkoutUrl;
+        } catch (error) {
+          console.error(error);
+          status.textContent = "CRM submission failed. Review your endpoint or continue to checkout.";
+
+          const checkoutUrl = buildCheckoutUrl(CHECKOUT_BASE_URL, fullPayload);
+
+          setTimeout(function () {
+            window.location.href = checkoutUrl;
+          }, 1200);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
