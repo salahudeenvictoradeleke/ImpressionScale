@@ -63,6 +63,13 @@
       background: rgba(7, 12, 24, 0.72);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
+    
+    .topbar-btn {
+  width: auto;
+  min-width: 180px;
+  max-width: 220px;
+  padding: 14px 24px;
+}
 
     .topbar-inner {
       display: flex;
@@ -73,9 +80,9 @@
     }
 
     .brand {
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      font-size: 1.05rem;
+       font-weight: 800;
+ letter-spacing: -0.03em;
+ font-size: 1.5rem;
     }
 
     .brand span {
@@ -553,7 +560,15 @@
       .nav {
         display: none;
       }
+      .brand {
+    font-size: 1.7rem;
+  }
 
+.topbar-btn {
+    width: 60%;
+    min-width: 160px;
+    max-width: 220px;
+  }
       .hero {
         padding-top: 50px;
       }
@@ -601,8 +616,8 @@
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a href="#pricing" class="btn btn-primary track-cta" data-cta-location="topbar_get_started">Get Started</a>
-    </div>
+      <a href="#pricing" class="btn btn-primary track-cta topbar-btn" data-cta-location="topbar_get_started">Get Started</a>  
+      </div>
   </header>
 
   <section class="hero">
@@ -1081,4 +1096,4 @@
   </script>
 
 </body>
-  </html>
+</html>
