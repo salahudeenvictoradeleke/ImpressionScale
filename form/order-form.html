@@ -265,6 +265,74 @@
       color: var(--muted);
     }
 
+    .preloader-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(110, 231, 183, 0.18), transparent 28%),
+        rgba(8, 16, 31, 0.96);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .preloader-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .preloader-box {
+      width: min(100%, 420px);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    .preloader-spinner {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,0.12);
+      border-top-color: var(--accent);
+      border-right-color: var(--accent-2);
+      animation: spin 0.9s linear infinite;
+    }
+
+    .preloader-title {
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .preloader-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     @media (max-width: 860px) {
       .layout, .grid-2 {
         grid-template-columns: 1fr;
@@ -274,9 +342,30 @@
         width: 100%;
       }
     }
+
+    @media (max-width: 640px) {
+      .preloader-box {
+        width: 100%;
+        padding: 28px 20px;
+        border-radius: 20px;
+      }
+
+      .preloader-spinner {
+        width: 52px;
+        height: 52px;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="preloader-overlay active" id="preloaderOverlay" aria-hidden="false">
+    <div class="preloader-box">
+      <div class="preloader-spinner" aria-hidden="true"></div>
+      <div class="preloader-title" id="preloaderTitle">Processing...</div>
+      <div class="preloader-subtitle" id="preloaderSubtitle">Loading your campaign form.</div>
+    </div>
+  </div>
+
   <div class="page">
     <div class="container">
       <div class="topbar">
@@ -632,6 +721,7 @@
     const WHATSAPP_NUMBER = "2347057683274";
 
     let selectedGeoTargets = [];
+    let preloaderTextTimer = null;
 
     function getQueryParams() {
       return new URLSearchParams(window.location.search);
@@ -822,7 +912,70 @@
       updateGeoTargetHiddenField();
     }
 
+    function startPagePreloader() {
+      const overlay = document.getElementById("preloaderOverlay");
+      const title = document.getElementById("preloaderTitle");
+      const subtitle = document.getElementById("preloaderSubtitle");
+
+      if (!overlay || !title || !subtitle) return;
+
+      const steps = [
+        {
+          title: "Processing...",
+          subtitle: "Loading your campaign form."
+        },
+        {
+          title: "Preparing details...",
+          subtitle: "Getting your selected package ready."
+        },
+        {
+          title: "Ready to check out",
+          subtitle: "Your form is ready."
+        }
+      ];
+
+      let index = 0;
+
+      document.body.style.overflow = "hidden";
+      title.textContent = steps[0].title;
+      subtitle.textContent = steps[0].subtitle;
+
+      if (preloaderTextTimer) {
+        clearInterval(preloaderTextTimer);
+      }
+
+      preloaderTextTimer = setInterval(function () {
+        index += 1;
+        if (index < steps.length) {
+          title.textContent = steps[index].title;
+          subtitle.textContent = steps[index].subtitle;
+        }
+      }, 1600);
+
+      setTimeout(function () {
+        stopPagePreloader();
+      }, 5000);
+    }
+
+    function stopPagePreloader() {
+      const overlay = document.getElementById("preloaderOverlay");
+
+      if (preloaderTextTimer) {
+        clearInterval(preloaderTextTimer);
+        preloaderTextTimer = null;
+      }
+
+      if (overlay) {
+        overlay.classList.remove("active");
+        overlay.setAttribute("aria-hidden", "true");
+      }
+
+      document.body.style.overflow = "";
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
+      startPagePreloader();
+
       const form = document.getElementById("campaignForm");
       const status = document.getElementById("formStatus");
       const geoTargetSelect = document.getElementById("geo_target_select");
