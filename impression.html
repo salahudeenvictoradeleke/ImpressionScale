@@ -482,6 +482,62 @@
       padding-top: 24px;
     }
 
+    /* PRELOADER */
+    #page-preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(110, 231, 183, 0.14), transparent 28%),
+        linear-gradient(180deg, #08101f 0%, #0b1020 100%);
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #page-preloader.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: inline-block;
+      border-top: 4px solid #FFF;
+      border-right: 4px solid transparent;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+      position: relative;
+    }
+
+    .loader::after {
+      content: '';
+      box-sizing: border-box;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border-left: 4px solid #FF3D00;
+      border-bottom: 4px solid transparent;
+      animation: rotation 0.5s linear infinite reverse;
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
     @media (max-width: 1080px) {
       .hero-grid,
       .split,
@@ -531,6 +587,11 @@
   </style>
 </head>
 <body>
+
+  <!-- PRELOADER -->
+  <div id="page-preloader">
+    <span class="loader"></span>
+  </div>
 
   <header class="topbar">
     <div class="container topbar-inner">
@@ -691,16 +752,16 @@
             <li>Good for early traction</li>
             <li>Ideal for landing page testing</li>
           </ul>
-      <a
-  href="/ImpressionScale/form/order-form.html"
-  class="btn btn-secondary package-order-btn"
-  data-package="Starter"
-  data-price="200"
-  data-impressions="100000"
-  data-cta-location="pricing_starter"
->
-  Order Starter
-</a>
+          <a
+            href="/form/order-form.html"
+            class="btn btn-secondary package-order-btn"
+            data-package="Starter"
+            data-price="200"
+            data-impressions="100000"
+            data-cta-location="pricing_starter"
+          >
+            Order Starter
+          </a>
         </div>
 
         <div class="card price-card">
@@ -714,15 +775,16 @@
             <li>Useful for offer validation</li>
             <li>Better momentum for launches</li>
           </ul>
-       <a href="/ImpressionScale/form/order-form.html"
-  class="btn btn-secondary package-order-btn"
-  data-package="Growth"
-  data-price="450"
-  data-impressions="250000"
-  data-cta-location="pricing_growth"
->
-  Order Growth
-</a>
+          <a
+            href="/form/order-form.html"
+            class="btn btn-secondary package-order-btn"
+            data-package="Growth"
+            data-price="450"
+            data-impressions="250000"
+            data-cta-location="pricing_growth"
+          >
+            Order Growth
+          </a>
         </div>
 
         <div class="card price-card featured">
@@ -737,16 +799,16 @@
             <li>Ideal for scaling proven offers</li>
             <li>Higher volume brand visibility</li>
           </ul>
-       <a
-  href="/ImpressionScale/form/order-form.html"
-  class="btn btn-primary package-order-btn"
-  data-package="Scale"
-  data-price="800"
-  data-impressions="500000"
-  data-cta-location="pricing_scale"
->
-  Order Scale
-</a>
+          <a
+            href="/form/order-form.html"
+            class="btn btn-primary package-order-btn"
+            data-package="Scale"
+            data-price="800"
+            data-impressions="500000"
+            data-cta-location="pricing_scale"
+          >
+            Order Scale
+          </a>
         </div>
 
         <div class="card price-card">
@@ -760,16 +822,16 @@
             <li>Strongest visibility package</li>
             <li>Custom volume available above 1M</li>
           </ul>
-      <a
-  href="/ImpressionScale/form/order-form.html""
-  class="btn btn-secondary package-order-btn"
-  data-package="Authority"
-  data-price="1400"
-  data-impressions="1000000"
-  data-cta-location="pricing_authority"
->
-  Order Authority
-</a>
+          <a
+            href="/form/order-form.html"
+            class="btn btn-secondary package-order-btn"
+            data-package="Authority"
+            data-price="1400"
+            data-impressions="1000000"
+            data-cta-location="pricing_authority"
+          >
+            Order Authority
+          </a>
         </div>
       </div>
     </div>
@@ -1007,8 +1069,16 @@
 
       const existingPayload = getPayloadFromUrlOrStorage();
       populateHiddenFieldsFromPayload(existingPayload);
+
+      /* PRELOADER: show for 5 seconds, then hide */
+      const preloader = document.getElementById("page-preloader");
+      setTimeout(() => {
+        if (preloader) {
+          preloader.classList.add("hide");
+        }
+      }, 5000);
     });
   </script>
 
 </body>
-</html>
+  </html>
