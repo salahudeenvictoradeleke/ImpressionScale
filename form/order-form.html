@@ -337,6 +337,10 @@
             <input type="hidden" name="utm_content" />
             <input type="hidden" name="timestamp" />
 
+            <input type="hidden" name="_subject" value="New Campaign Order Submission" />
+            <input type="hidden" name="_replyto" id="replyToField" />
+            <input type="hidden" name="_template" value="table" />
+
             <div class="grid-2">
               <div class="field">
                 <label for="full_name">Full Name</label>
@@ -349,49 +353,48 @@
               </div>
             </div>
           
-               <div class="field">
+            <div class="field">
               <label for="email">Email Address</label>
               <input id="email" name="email" type="email" placeholder="you@example.com" required />
             </div>
  
-            
-                 <div class="field">
+            <div class="field">
               <label for="destination_url">Destination URL</label>
               <input id="destination_url" name="destination_url" type="url" placeholder="https://yourdomain.com/product-or-offer" required />
             </div>
             
-       <div class="grid-2">
-         <div class="field">
-           <label for="platform">Platform</label>
-           <select id="platform" name="platform" required>
-             <option value="">Select platform</option>
-             <option value="amazon">Amazon</option>
-             <option value="bigcartel">Big Cartel</option>
-             <option value="bigcommerce">BigCommerce</option>
-             <option value="custom_website">Custom Website</option>
-             <option value="ecwid">Ecwid</option>
-             <option value="ebay">eBay</option>
-             <option value="etsy">Etsy</option>
-             <option value="gumroad">Gumroad</option>
-             <option value="magento_adobe_commerce">Magento / Adobe Commerce</option>
-             <option value="not_on_a_platform">Not on a Platform</option>
-             <option value="opencart">OpenCart</option>
-             <option value="prestashop">PrestaShop</option>
-             <option value="sellfy">Sellfy</option>
-             <option value="shift4shop">Shift4Shop / 3dcart</option>
-             <option value="shopify">Shopify</option>
-             <option value="shopware">Shopware</option>
-             <option value="square_online">Square Online</option>
-             <option value="squarespace">Squarespace</option>
-             <option value="tiktok_shop">TikTok Shop</option>
-             <option value="volusion">Volusion</option>
-             <option value="webflow">Webflow</option>
-             <option value="weebly">Weebly</option>
-             <option value="wix">Wix</option>
-             <option value="woocommerce">WooCommerce</option>
-             <option value="other">Other</option>
-           </select>
-         </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="platform">Platform</label>
+                <select id="platform" name="platform" required>
+                  <option value="">Select platform</option>
+                  <option value="amazon">Amazon</option>
+                  <option value="bigcartel">Big Cartel</option>
+                  <option value="bigcommerce">BigCommerce</option>
+                  <option value="custom_website">Custom Website</option>
+                  <option value="ecwid">Ecwid</option>
+                  <option value="ebay">eBay</option>
+                  <option value="etsy">Etsy</option>
+                  <option value="gumroad">Gumroad</option>
+                  <option value="magento_adobe_commerce">Magento / Adobe Commerce</option>
+                  <option value="not_on_a_platform">Not on a Platform</option>
+                  <option value="opencart">OpenCart</option>
+                  <option value="prestashop">PrestaShop</option>
+                  <option value="sellfy">Sellfy</option>
+                  <option value="shift4shop">Shift4Shop / 3dcart</option>
+                  <option value="shopify">Shopify</option>
+                  <option value="shopware">Shopware</option>
+                  <option value="square_online">Square Online</option>
+                  <option value="squarespace">Squarespace</option>
+                  <option value="tiktok_shop">TikTok Shop</option>
+                  <option value="volusion">Volusion</option>
+                  <option value="webflow">Webflow</option>
+                  <option value="weebly">Weebly</option>
+                  <option value="wix">Wix</option>
+                  <option value="woocommerce">WooCommerce</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
          
               <div class="field">
                 <label for="geo_target_select">Geo Target</label>
@@ -603,7 +606,7 @@
 
             <div class="actions">
               <button type="submit" class="btn btn-primary">Save Details & Continue to Checkout</button>
-              <a href="/ImpressionScale/impression.html" class="btn btn-secondary">Back to Packages</a>
+              <a href="/impression.html" class="btn btn-secondary">Back to Packages</a>
             </div>
 
             <div class="status" id="formStatus">
@@ -612,7 +615,7 @@
           </form>
 
           <p class="small" style="margin-top: 16px;">
-            Replace the CRM endpoint and checkout URL in the script with your actual systems.
+            Replace the checkout URL in the script with your actual system if needed.
           </p>
         </section>
       </div>
@@ -623,9 +626,10 @@
     window.dataLayer = window.dataLayer || [];
 
     const OFFER_STORAGE_KEY = "selected_impression_offer";
-    const CRM_ENDPOINT = "https://example.com/api/lead";
+    const CRM_ENDPOINT = "https://formspree.io/f/mpqyvbky";
     const CHECKOUT_BASE_URL = "https://yourcheckoutdomain.com/checkout";
     const OFFER_PAGE_URL = "/impression.html";
+    const WHATSAPP_NUMBER = "2347057683274";
 
     let selectedGeoTargets = [];
 
@@ -696,7 +700,9 @@
     function populateHiddenFields(form, payload) {
       const hiddenFields = form.querySelectorAll('input[type="hidden"]');
       hiddenFields.forEach(function (field) {
-        field.value = "";
+        if (!["_subject", "_replyto", "_template"].includes(field.name)) {
+          field.value = "";
+        }
       });
 
       Object.entries(payload).forEach(([key, value]) => {
@@ -730,6 +736,24 @@
       return url.toString();
     }
 
+    function buildWhatsAppUrl(payload) {
+      const message = [
+        "Hello, I just submitted my campaign order.",
+        "",
+        `Full Name: ${payload.full_name || ""}`,
+        `Business Name: ${payload.business_name || ""}`,
+        `Email: ${payload.email || ""}`,
+        `Destination URL: ${payload.destination_url || ""}`,
+        `Platform: ${payload.platform || ""}`,
+        `Geo Target: ${payload.geo_target || ""}`,
+        `Selected Package: ${payload.selected_package || ""}`,
+        `Price: ${payload.price || ""}`,
+        `Impression Volume: ${payload.impression_volume || ""}`
+      ].join("\n");
+
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+
     async function postToCrm(payload) {
       if (!CRM_ENDPOINT || CRM_ENDPOINT.includes("example.com")) {
         return { skipped: true };
@@ -738,7 +762,8 @@
       const response = await fetch(CRM_ENDPOINT, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify(payload)
       });
@@ -802,6 +827,8 @@
       const status = document.getElementById("formStatus");
       const geoTargetSelect = document.getElementById("geo_target_select");
       const geoTargetHidden = document.getElementById("geo_target");
+      const emailInput = document.getElementById("email");
+      const replyToField = document.getElementById("replyToField");
 
       localStorage.removeItem(OFFER_STORAGE_KEY);
 
@@ -815,6 +842,14 @@
         populateSummary(payload);
         populateHiddenFields(form, payload);
         pushAnalyticsEvent("order_form_viewed", payload);
+      }
+
+      if (emailInput && replyToField) {
+        replyToField.value = emailInput.value.trim();
+
+        emailInput.addEventListener("input", function () {
+          replyToField.value = this.value.trim();
+        });
       }
 
       if (geoTargetHidden && geoTargetHidden.value) {
@@ -853,6 +888,10 @@
           return;
         }
 
+        if (replyToField && emailInput) {
+          replyToField.value = emailInput.value.trim();
+        }
+
         const formData = getFormDataObject(form);
         const fullPayload = {
           ...latestPayload,
@@ -869,12 +908,12 @@
         try {
           await postToCrm(fullPayload);
 
-          const checkoutUrl = buildCheckoutUrl(CHECKOUT_BASE_URL, fullPayload);
-          status.textContent = "Redirecting to checkout...";
-          window.location.href = checkoutUrl;
+          const whatsappUrl = buildWhatsAppUrl(fullPayload);
+          status.textContent = "Redirecting to WhatsApp...";
+          window.location.href = whatsappUrl;
         } catch (error) {
           console.error(error);
-          status.textContent = "CRM submission failed. Review your endpoint or continue to checkout.";
+          status.textContent = "Submission failed. Review your Formspree setup or continue to checkout.";
 
           const checkoutUrl = buildCheckoutUrl(CHECKOUT_BASE_URL, fullPayload);
 
